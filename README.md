@@ -1,12 +1,16 @@
 # DeepRiverFCNNs
 
-
 ### Requirements
-model index 
+- TensorFlow (tested on tensorflow-gpu==2.4.1 python=3.8.5)
+- OpenCV
+- rasterio
+- xarray 
+- rioxarray
+- geopandas
+
+To create the TensorFlow environment please refer the environment.yml
 
 ### Running Our Codes
-
-
 
 **Model Training:**
 ```python
