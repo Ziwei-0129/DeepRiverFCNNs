@@ -1,7 +1,7 @@
 # DeepRiverFCNNs
 
 
-## Dependencies
+## Requirements
 
 
 ## Demo
