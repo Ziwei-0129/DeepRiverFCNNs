@@ -25,8 +25,8 @@ class TFModelTrainer:
         self.batch_size = args.batch_size #24
 
         # other hyperparameters
-        self.data_dim = args.data_dim
-        self.model_index = args.model_index
+        self.data_dim = int(args.data_dim)
+        self.model_index = int(args.model_index)
 
         # create the data generators
         train_filenames = glob.glob(os.path.join(data_path, 'train_*.tfrecord'))

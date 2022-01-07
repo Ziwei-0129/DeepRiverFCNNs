@@ -15,6 +15,7 @@ import tifffile as tiff
 import rioxarray 
 import pandas as pd
 import geopandas as gpd 
+import tensorflow as tf
 
 # # Use CPU
 # os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
@@ -43,9 +44,7 @@ def inference(model, image, data_dim):
     pad_r = find_padding(image.shape[0])
     pad_c = find_padding(image.shape[1])
 
-    print(f'!!!!!Shape of image: {image.shape}')
-
-    if data_dim == 1:
+    if data_dim == 1: 
         image = np.pad(image, ((pad_r[0], pad_r[1]), (pad_c[0], pad_c[1])), 'reflect')
     else:
         image = np.pad(image, ((pad_r[0], pad_r[1]), (pad_c[0], pad_c[1]), (0,0)), 'reflect')
@@ -71,15 +70,7 @@ def inference(model, image, data_dim):
  
 
 def main(args):
-    
-    # dataset = rasterio.open(args.input_path)
-    # num_band = dataset.count   
-    # image = dataset.read() 
-
-    # if (np.ndim(image) == 3):
-    #     image = np.moveaxis(image, 0, -1)
-
-    ### downscale the 4x resolution Pan image ###
+     
     with rasterio.open(args.input_path) as dataset:
 
         if args.data_dim == 1:
@@ -93,6 +84,9 @@ def main(args):
                 (dataset.width / image.shape[-1]),
                 (dataset.height / image.shape[-2]))
 
+            # image crop:
+            if args.central_fraction != None:
+                image = tf.image.central_crop(image, args.central_fraction)
             image = np.squeeze(image)
             image = np.array(image) 
             print('New Dim: ', image.shape)
@@ -100,6 +94,9 @@ def main(args):
             image = dataset.read() 
             if (np.ndim(image) == 3):
                 image = np.moveaxis(image, 0, -1)
+            # image crop:
+            if args.central_fraction != None:
+                image = tf.image.central_crop(image, args.central_fraction)
 
     # Load inference model 
     model = None
@@ -150,7 +147,9 @@ if __name__ == '__main__':
     parser.add_argument('--mask_name', type=str, default="mask.tif", help="Name of output mask") 
     parser.add_argument('--data_dim', type=int, help="Dimension of the training data, e.g., 1 or 4")
     parser.add_argument('--model_index', type=int, help="Index of the FCNN model")
-    parser.add_argument('--downscale_factor', type=int, help="Image downscaling ratio")
+    parser.add_argument('--downscale_factor', default=None, type=int, help="Image downscaling ratio for panchromatic images")
+    parser.add_argument('--central_fraction', default=None, type=float, help="Index of the FCNN model")
+    
     args = parser.parse_args() 
 
     if not os.path.exists(args.output_folder):
