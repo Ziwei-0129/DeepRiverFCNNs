@@ -1,4 +1,4 @@
-# DeepRiverFCNNs
+# River Segmentation using FCNNs
 
 ### Requirements
 - TensorFlow (tested on tensorflow-gpu==2.4.1 python==3.8.5)
