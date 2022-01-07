@@ -8,7 +8,7 @@
 - rioxarray
 - geopandas
 
-To create the TensorFlow environment please refer the environment.yml
+To create the TensorFlow environment for training and inference please refer the file environment.yml
 
 ### Running Our Codes
 
