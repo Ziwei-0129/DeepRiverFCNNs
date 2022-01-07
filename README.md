@@ -14,12 +14,15 @@ python train_fcnn.py --checkpoint_dir ckpts --data_path TensorFlowRecords --figu
 ```
 
 **Inference:**
+
 Five fully convolutional neural network models are supported in our codes. You can choose different type of FCNNs through "--model_index" option from 1 to 5:
+```
 1: DeepWaterMap
 2: UNet with ResNet18 backbone
 3: UNet with ResNet34 backbone
 4: LinkNet with ResNet18 backbone
 5: LinkNet with ResNet34 backbone
+```
 
 You can specify the channel number of your input data using the "--data_dim" option (e.g., 1 for panchromatic or 4 for 4-band images)
 ```python
