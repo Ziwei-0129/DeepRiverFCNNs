@@ -14,7 +14,7 @@ To create the TensorFlow environment for training and inference please refer the
 
 **Model Training:**
 ```python
-python train_fcnn.py --checkpoint_dir ckpts --data_path TensorFlowRecords --figure_path figs --data_dim 1 --model_index 1 --num_epoch 2 --batch_size 24 --learning_rate 0.1
+python train_fcnn.py --checkpoint_path ckpts --data_path TensorFlowRecords --figure_path figs --data_dim 1 --model_index 1 --num_epoch 2 --batch_size 24 --learning_rate 0.1
 ```
 
 **Inference:**
